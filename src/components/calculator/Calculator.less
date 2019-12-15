@@ -1,0 +1,17 @@
+@row-height: 16px;
+
+.calc {
+  padding: 32px;
+  &__stations {
+    > div {
+      display: inline-block;
+    }
+    > div:not(:first-child) {
+      margin-left: 48px;
+    }
+  }
+
+  &__results {
+    margin-top: @row-height * 2;
+  }
+}
