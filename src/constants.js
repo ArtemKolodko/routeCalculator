@@ -39,3 +39,5 @@ export const StationDistances = [{
   stationIds: [StationIds.nnovgorod, StationIds.ekateriburg],
   distance: 1500
 }];
+
+export const PricePerKm = 70;

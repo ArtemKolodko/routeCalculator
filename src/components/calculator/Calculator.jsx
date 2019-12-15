@@ -1,28 +1,8 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import StationSelect from '../stations-select'
+import Results from '../results'
 import './Calculator.less'
-
-function Results (props) {
-    const {path: {resolved, route, distance}, stationFrom, stationTo} = props;
-    if (stationFrom && stationTo) {
-        if(stationFrom.id === stationTo.id) {
-            return <div>Станции отправления и назначения совпадают</div>
-        }
-        if (!resolved) {
-            return <div>Путь не построен</div>
-        }
-    } else {
-        return <div>Выберите станцию отправления и назначения</div>
-    }
-    const routeDetailed = route
-        .map(({name}) => name)
-        .join(' ⟶ ');
-    return <div>
-        <div>{routeDetailed}</div>
-        <div>Расстояние: {distance} км</div>
-    </div>
-}
 
 export default inject("appStore")(observer(({ appStore }) => {
     const {
@@ -48,7 +28,11 @@ export default inject("appStore")(observer(({ appStore }) => {
             />
         </div>
         <div className={'calc__results'}>
-           <Results path={path} stationFrom={stationFrom} stationTo={stationTo} />
+           <Results
+               path={path}
+               stationFrom={stationFrom}
+               stationTo={stationTo}
+           />
         </div>
     </div>
 }));

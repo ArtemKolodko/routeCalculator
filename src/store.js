@@ -1,6 +1,6 @@
 import { observable, action, runInAction, toJS } from "mobx";
 import Graph from 'node-dijkstra';
-import { StationIds, AllStationIds, StationDistances } from "./constants";
+import { PricePerKm, AllStationIds, StationDistances } from "./constants";
 import Station from "./entities/Station";
 
 export default class AppState {
@@ -29,7 +29,6 @@ export default class AppState {
     });
     stations.forEach(({id, neighbours}) => this.graph.addNode(id, neighbours));
     this.stations = stations;
-    console.log('stations', stations)
   }
 
   @action
@@ -57,7 +56,8 @@ export default class AppState {
     let path = {
       resolved: false,
       route: [],
-      distance: 0
+      distance: 0,
+      price: 0
     };
 
     if (from && to) {
@@ -72,11 +72,13 @@ export default class AppState {
           }
           return acc
         }, 0);
+        const price = distance * PricePerKm;
         return {
           ...path,
           resolved: true,
           route,
-          distance
+          distance,
+          price
         }
       }
     }
